@@ -9,20 +9,32 @@ body {
   font-family: 'Retrograde-Regular', sans-serif;
   margin: 0;
   padding: 0;
+  user-select: none;
 }
 
 .home-container {
-  width: 400px;
-  height: 300px;
+  width: 100vw;
+  height: 100vh;
+  min-width: 200px;
+  min-height: 180px;
   background-image: url('./assets/blue_underwater_background.gif');
   background-size: cover;
   background-position: center;
   display: flex;
+  flex-direction: column;
   align-items: stretch;
   justify-content: center;
   border-radius: 12px;
   box-sizing: border-box;
   text-align: center;
+}
+
+.title-bar {
+  -webkit-app-region: drag;
+  height: 15vh;
+  width: 100vw;
+  min-height: 30px;
+  background-color: rgba(255, 255, 255, 0.177);
 }
 
 .home-content {
@@ -32,13 +44,13 @@ body {
   justify-content: space-between;
   height: 100%;
   width: 100%;
-  padding-top: 60px;
-  padding-bottom: 20px;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
   box-sizing: border-box;
 }
 
 .encouragement-text {
-  font-size: 1.25rem;
+  font-size: min(5vh, 20vw);
   color: #99e550;
   margin-bottom: 0.5rem;
   animation: fadeIn 1s ease-in-out;
@@ -73,24 +85,20 @@ body {
   gap: 20%;
 }
 
-.image-button {
+.mode-button {
   background: none;
   border: none;
   cursor: pointer;
 }
 
-.image-button img {
-  width: 25vw;
+.mode-button img {
+  width: min(25vw, 30vh);
 }
 
 .home-timer {
-  font-size: 21vh;
+  font-size: min(21vh, 20vw);
   color: #fffdce;
   margin: 0;
-}
-
-.gif-image {
-  height:100px;
 }
 
 .home-button {
@@ -100,33 +108,20 @@ body {
 }
 
 .home-button img {
-  width: 15vw;
+  width: min(10vw, 20vh);
 }
 
-.minimize-button {
+.title-bar-button {
   position: absolute;
-  top: 10px;
-  right: 50px;
+  top: 3vh;
   background: none;
   border: none;
   cursor: pointer;
+  -webkit-app-region: no-drag;
 }
 
-.close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.minimize-button img {
-  width: 24px;
-  height: 24px;
-}
-
-.close-button img {
-  width: 24px;
-  height: 24px;
+.title-bar-button img {
+  min-width: 24px;
+  min-height: 24px;
+  height: min(8vh, 8vw);
 }

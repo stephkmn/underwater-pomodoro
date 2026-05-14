@@ -8,6 +8,8 @@ function createMainWindow() {
         title: 'Pomodoro',
         width: 400,
         height: 300,
+        minWidth: 200,
+        minHeight: 180,
         frame: false,
         titleBarStyle: 'hidden',
         webPreferences: {

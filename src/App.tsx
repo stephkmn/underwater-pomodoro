@@ -13,18 +13,19 @@ import pauseBtn from './assets/pause_button.png';
 import stopBtn from './assets/stop_button.png';
 import endAlarm from './assets/end_alarm.mp3';
 
-const alarm = new Audio(endAlarm);
+const ALARM = new Audio(endAlarm);
+const WORK_TIME = 25 * 60;
+const BREAK_TIME = 5 * 60;
 
-const workMessages = [
+const WORK_MESSAGES = [
   "Push through twin",
-  "Pedal for that medal twin",
   "Keep going twin",
   "Almost there twin",
   "Lock in twin",
   "You can do it twin"
 ];
 
-const breakMessages = [
+const BREAK_MESSAGES = [
   "Break time!",
   "Get yourself a snack twin",
   "Stay hydrated",
@@ -32,8 +33,7 @@ const breakMessages = [
 ];
 
 function App() {
-
-  const [timeRemaining, setTimeRemaining] = useState(25 * 60);
+  const [timeRemaining, setTimeRemaining] = useState(WORK_TIME);
   const [isRunning, setIsRunning] = useState(false);
   const [isBreak, setIsBreak] = useState(false);
   const [breakButtonImage, setBreakButtonImage] = useState(breakBtn);
@@ -47,7 +47,7 @@ function App() {
 
     if(!isRunning) { setEncouragement(""); return; }
 
-    const messages = isBreak ? breakMessages : workMessages;
+    const messages = isBreak ? BREAK_MESSAGES : WORK_MESSAGES;
     setEncouragement(messages[0]);
     let index = 1
 
@@ -83,7 +83,7 @@ function App() {
   // Alarm sound
   useEffect(() => {
     if (timeRemaining === 0 && isRunning) {
-      alarm.play().catch((err: unknown) => {
+      ALARM.play().catch((err: unknown) => {
         console.error("Audio play failed: ", err);
       });
       switchMode(!isBreak);
@@ -99,7 +99,7 @@ function App() {
   const switchMode = (breakMode: boolean) => {
     setIsBreak(breakMode);
     setIsRunning(false);
-    setTimeRemaining(breakMode ? 5 * 60 : 25 * 60);
+    setTimeRemaining(breakMode ? BREAK_TIME : WORK_TIME);
     setWorkButtonImage(breakMode ? workBtn : workBtnClicked);
     setBreakButtonImage(breakMode ? breakBtnClicked : breakBtn);
     setStartStopButtonImage(startBtn);
@@ -112,7 +112,7 @@ function App() {
     }
     else {
       setIsRunning(false);
-      setTimeRemaining(isBreak ? 5 * 60 : 25 * 60);
+      setTimeRemaining(isBreak ? BREAK_TIME : WORK_TIME);
       setStartStopButtonImage(startBtn);
     }
   };
@@ -126,7 +126,7 @@ function App() {
       console.warn("Electron API not available");
     }
   };
-  
+
   const handleCloseClick = () => {
     if(window.electronAPI?.closeApp) {
       window.electronAPI.closeApp();
@@ -138,24 +138,25 @@ function App() {
   return (
     <>
       <div className={containerClass} style={{ position: 'relative' }}>
-        <button className="minimize-button" onClick={handleMinimizeClick}>
-          <img src={minimizeBtn} alt="Minimize"/>
-        </button>
-        <button className="close-button" onClick={handleCloseClick}>
-          <img src={closeBtn} alt="Close"/>
-        </button>
-
+        <div className="title-bar">
+          <button className="title-bar-button" onClick={handleMinimizeClick} style={{right: "min(20vh, 18vw)"}}>
+            <img src={minimizeBtn} alt="Minimize"/>
+          </button>
+          <button className="title-bar-button" onClick={handleCloseClick} style={{right: "min(10vh, 5vw)"}}>
+            <img src={closeBtn} alt="Close"/>
+          </button>
+        </div>
+        
         <div className="home-content">
           <div className="home-controls">
             <div className = "mode-controls">
-              <button className="image-button" onClick={() => switchMode(false)}>
+              <button className="mode-button" onClick={() => switchMode(false)}>
                 <img src={workButtonImage} alt="Work"/>
               </button>
-              <button className="image-button" onClick={() => switchMode(true)}>
+              <button className="mode-button" onClick={() => switchMode(true)}>
                 <img src={breakButtonImage} alt="Break"/>
               </button>
             </div>
-            
 
             <p className ={`encouragement-text ${!isRunning ? "hidden" : ""}`}>
               {encouragement}
@@ -165,8 +166,8 @@ function App() {
 
             <button className="home-button" onClick={handleClick}>
               <img src={startStopButtonImage} alt="Start / Stop"/>
-
             </button>
+
           </div>
         </div>
       </div>
