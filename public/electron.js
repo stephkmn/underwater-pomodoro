@@ -25,9 +25,10 @@ function createMainWindow() {
     mainWindow.setMenuBarVisibility(false);
     mainWindow.loadURL(startUrl) // load app to electron
 
-    ipcMain.on('close-app', () => {
-        app.quit();
-    })
+    ipcMain.on('close-app', () => app.quit());
+    ipcMain.on('minimize-app', () => {
+        BrowserWindow.getFocusedWindow()?.minimize();
+    });
 }
 
 app.whenReady().then(createMainWindow)

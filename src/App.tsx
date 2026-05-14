@@ -119,6 +119,14 @@ function App() {
 
   const containerClass = `home-container ${isBreak ? "background-green" : ""}`;
 
+  const handleMinimizeClick = () => {
+    if(window.electronAPI?.minimizeApp) {
+      window.electronAPI.minimizeApp();
+    } else {
+      console.warn("Electron API not available");
+    }
+  };
+  
   const handleCloseClick = () => {
     if(window.electronAPI?.closeApp) {
       window.electronAPI.closeApp();
@@ -130,6 +138,9 @@ function App() {
   return (
     <>
       <div className={containerClass} style={{ position: 'relative' }}>
+        <button className="minimize-button" onClick={handleMinimizeClick}>
+          <img src={minimizeBtn} alt="Minimize"/>
+        </button>
         <button className="close-button" onClick={handleCloseClick}>
           <img src={closeBtn} alt="Close"/>
         </button>

@@ -80,11 +80,11 @@ body {
 }
 
 .image-button img {
-  width: 100px;
+  width: 25vw;
 }
 
 .home-timer {
-  font-size: 60px;
+  font-size: 21vh;
   color: #fffdce;
   margin: 0;
 }
@@ -100,7 +100,16 @@ body {
 }
 
 .home-button img {
-  width: 60px;
+  width: 15vw;
+}
+
+.minimize-button {
+  position: absolute;
+  top: 10px;
+  right: 50px;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 .close-button {
@@ -110,6 +119,11 @@ body {
   background: none;
   border: none;
   cursor: pointer;
+}
+
+.minimize-button img {
+  width: 24px;
+  height: 24px;
 }
 
 .close-button img {
