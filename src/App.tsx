@@ -97,6 +97,7 @@ function App() {
     return `${m}:${s}`;
   };
 
+  // Switch between work and break modes
   const switchMode = (breakMode: boolean) => {
     setIsBreak(breakMode);
     setIsRunning(false);
@@ -106,6 +107,7 @@ function App() {
     setStartPauseButtonImage(startBtn);
   }
 
+  // Handle click of start/pause button
   const handleClick = () => {
     if(!isRunning) {
       setIsRunning(true);
@@ -147,6 +149,7 @@ function App() {
   return (
     <>
       <div className={containerClass} style={{ position: 'relative' }}>
+
         <div className="title-bar">
           <button className="title-bar-button" onClick={handleMinimizeClick} style={{right: "min(20vh, 18vw)"}}>
             <img src={minimizeBtn} alt="Minimize"/>
@@ -170,8 +173,9 @@ function App() {
             <p className ={`encouragement-text ${!isRunning ? "hidden" : ""}`}>
               {encouragement}
             </p>
-
             <h1 className="home-timer">{formatTime(timeRemaining)}</h1>
+
+            {/* Hide the stop button when not using */}
             <div className={`timer-buttons ${isRunning || onPause ? "timer-buttons-running" : ""}`}>
               <button className="home-button" onClick={handleClick}>
                 <img src={startPauseButtonImage} alt="Start / Pause"/>

@@ -27,6 +27,10 @@ function createMainWindow() {
     mainWindow.setMenuBarVisibility(false);
     mainWindow.loadURL(startUrl) // load app to electron
 
+    mainWindow.webContents.on('context-menu', (e) => {
+        e.preventDefault();
+    });
+
     ipcMain.on('close-app', () => app.quit());
     ipcMain.on('minimize-app', () => {
         BrowserWindow.getFocusedWindow()?.minimize();
