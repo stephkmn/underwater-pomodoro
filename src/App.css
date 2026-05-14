@@ -101,6 +101,18 @@ body {
   margin: 0;
 }
 
+.timer-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: min(10vw, 20vh);
+}
+
+.timer-buttons-running {
+  justify-content: space-evenly;
+}
+
 .home-button {
   background: none;
   border: none;

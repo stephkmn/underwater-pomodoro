@@ -36,9 +36,10 @@ function App() {
   const [timeRemaining, setTimeRemaining] = useState(WORK_TIME);
   const [isRunning, setIsRunning] = useState(false);
   const [isBreak, setIsBreak] = useState(false);
+  const [onPause, setOnPause] = useState(false);
   const [breakButtonImage, setBreakButtonImage] = useState(breakBtn);
   const [workButtonImage, setWorkButtonImage] = useState(workBtn);
-  const [startStopButtonImage, setStartStopButtonImage] = useState(startBtn);
+  const [startPauseButtonImage, setStartPauseButtonImage] = useState(startBtn);
   const [encouragement, setEncouragement] = useState("");
 
   // Message updater
@@ -102,20 +103,28 @@ function App() {
     setTimeRemaining(breakMode ? BREAK_TIME : WORK_TIME);
     setWorkButtonImage(breakMode ? workBtn : workBtnClicked);
     setBreakButtonImage(breakMode ? breakBtnClicked : breakBtn);
-    setStartStopButtonImage(startBtn);
+    setStartPauseButtonImage(startBtn);
   }
 
   const handleClick = () => {
     if(!isRunning) {
       setIsRunning(true);
-      setStartStopButtonImage(stopBtn);
+      setStartPauseButtonImage(pauseBtn);
     }
     else {
       setIsRunning(false);
-      setTimeRemaining(isBreak ? BREAK_TIME : WORK_TIME);
-      setStartStopButtonImage(startBtn);
+      setStartPauseButtonImage(startBtn);
+      setOnPause(true);
     }
   };
+
+  const handleStop = () => {
+    if(!isRunning && !onPause) return;
+    setIsRunning(false);
+    setOnPause(false);
+    setTimeRemaining(isBreak ? BREAK_TIME : WORK_TIME);
+    setStartPauseButtonImage(startBtn);
+  }
 
   const containerClass = `home-container ${isBreak ? "background-green" : ""}`;
 
@@ -163,12 +172,18 @@ function App() {
             </p>
 
             <h1 className="home-timer">{formatTime(timeRemaining)}</h1>
-
-            <button className="home-button" onClick={handleClick}>
-              <img src={startStopButtonImage} alt="Start / Stop"/>
-            </button>
-
+            <div className={`timer-buttons ${isRunning || onPause ? "timer-buttons-running" : ""}`}>
+              <button className="home-button" onClick={handleClick}>
+                <img src={startPauseButtonImage} alt="Start / Pause"/>
+              </button>
+              {(isRunning || onPause) && (
+                <button className="home-button" onClick={handleStop}>
+                  <img src={stopBtn} alt="Stop"/>
+                </button>
+              )}
+            </div>
           </div>
+
         </div>
       </div>
     </>
