@@ -101,6 +101,7 @@ function App() {
   const switchMode = (breakMode: boolean) => {
     setIsBreak(breakMode);
     setIsRunning(false);
+    setOnPause(false);
     setTimeRemaining(breakMode ? BREAK_TIME : WORK_TIME);
     setWorkButtonImage(breakMode ? workBtn : workBtnClicked);
     setBreakButtonImage(breakMode ? breakBtnClicked : breakBtn);
