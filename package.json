@@ -2,6 +2,7 @@
   "name": "pomodoro",
   "version": "0.1.0",
   "private": true,
+  "main": "public/electron.js",
   "homepage": ".",
   "dependencies": {
     "@testing-library/dom": "^10.4.1",
@@ -22,6 +23,9 @@
     "start": "react-scripts start",
     "electron": "electron public/electron.js",
     "build": "react-scripts build",
+    "dist": "npm run build && electron-builder --mac --win",
+    "dist:mac": "npm run build && electron-builder --mac",
+    "dist:win": "npm run build && electron-builder --win",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "concurrently \"BROWSER=none npm start\" \"wait-on http://localhost:3000 && ELECTRON_START_URL=http://localhost:3000 npm run electron\""
@@ -49,5 +53,42 @@
     "electron": "^42.0.1",
     "electron-builder": "^26.8.1",
     "wait-on": "^9.0.10"
+  },
+  "build": {
+    "appId": "com.stephkmn.underwater-pomodoro",
+    "productName": "Underwater Pomodoro",
+    "files": [
+      "build/**/*",
+      "public/electron.js",
+      "public/preload.js",
+      "package.json"
+    ],
+    "directories": {
+      "buildResources": "src/assets",
+      "output": "release"
+    },
+    "mac": {
+      "category": "public.app-category.productivity",
+      "icon": "src/assets/seal.png",
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    },
+    "win": {
+      "icon": "src/assets/seal.png",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
   }
 }
