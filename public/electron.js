@@ -12,6 +12,7 @@ function createMainWindow() {
         minHeight: 180,
         frame: false,
         titleBarStyle: 'hidden',
+        icon: path.join(__dirname, '../src/assets/seal.ico'),
         webPreferences: {
             preload: path.join(__dirname, 'preload.js')
         }
@@ -23,7 +24,9 @@ function createMainWindow() {
         slashes: true
     });
 
-    mainWindow.setWindowButtonVisibility(false);
+    if (process.platform === "darwin" && typeof mainWindow.setWindowButtonVisibility === "function") {
+        mainWindow.setWindowButtonVisibility(false);
+    }
     mainWindow.setMenuBarVisibility(false);
     mainWindow.loadURL(startUrl) // load app to electron
 

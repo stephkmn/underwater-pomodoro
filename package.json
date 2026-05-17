@@ -57,11 +57,15 @@
   "build": {
     "appId": "com.stephkmn.underwater-pomodoro",
     "productName": "Underwater Pomodoro",
+    "extraMetadata": {
+      "main": "public/electron.js"
+    },
     "files": [
       "build/**/*",
       "public/electron.js",
       "public/preload.js",
-      "package.json"
+      "package.json",
+      "src/assets/**/*"
     ],
     "directories": {
       "buildResources": "src/assets",
@@ -76,16 +80,16 @@
       ]
     },
     "win": {
-      "icon": "src/assets/seal.png",
-      "target": [
-        {
-          "target": "nsis",
-          "arch": [
-            "x64"
-          ]
-        }
-      ]
-    },
+    "icon": "seal.ico",
+    "signingHashAlgorithms": null,
+    "sign": null,
+    "target": [
+      {
+        "target": "nsis",
+        "arch": ["x64"]
+      }
+    ]
+  },
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true
